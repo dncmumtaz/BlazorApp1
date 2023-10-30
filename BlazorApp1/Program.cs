@@ -1,4 +1,5 @@
 using BlazorApp1.Data;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 

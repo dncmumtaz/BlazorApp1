@@ -1,0 +1,28 @@
+﻿@inject IJSRuntime JsRuntime
+
+<input  class="form-control" placeholder="Pick a date" id="kt_datepicker_1"/>
+
+<h1>JS Interop</h1>
+
+<h3>Create Alert</h3>
+
+<button class="btn btn-success" @onclick="ShowAlert">Show Alert</button>
+
+@code{
+    protected DateTime? dateTime;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("test");
+        }
+    }
+
+    async Task ShowAlert()
+    {
+        //dateTime = InputDateType tarih
+
+        await JsRuntime.InvokeVoidAsync(identifier:"test");
+    }
+}
