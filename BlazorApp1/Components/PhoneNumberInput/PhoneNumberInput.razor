@@ -1,0 +1,31 @@
+﻿@page "/phone"
+@using System.Globalization;
+
+<div class="input-group">
+    <input class="form-control" type="tel" @bind="phoneNumber" @oninput="OnPhoneNumberInput" maxlength="14" />
+
+</div>
+<h1>phone number is : @FormatPhoneNumber(phoneNumber)</h1>
+@code {
+    private string phoneNumber;
+
+    private void OnPhoneNumberInput( ChangeEventArgs e )
+    {
+        phoneNumber = e.Value.ToString();
+        phoneNumber = FormatPhoneNumber(phoneNumber);
+
+        if ( phoneNumber.Length > 14 )
+        {
+            phoneNumber = phoneNumber.Substring(0, 14);
+        }
+    }
+
+    private string FormatPhoneNumber( string phoneNumber )
+    {
+        if ( !string.IsNullOrWhiteSpace(phoneNumber) && phoneNumber.Length == 10 )
+        {
+            phoneNumber = string.Format("({0}) {1}-{2}", phoneNumber.Substring(0, 3), phoneNumber.Substring(3, 3), phoneNumber.Substring(6, 4));
+        }
+        return phoneNumber;
+    }
+}
