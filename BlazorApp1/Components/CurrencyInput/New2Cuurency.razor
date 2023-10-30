@@ -1,12 +1,8 @@
-﻿@page "/newCounter"
-
-
-@using System.Globalization;
-
+﻿@page "/newCounter2"
 <div class="input-group">
     <span class="input-group-text">$</span>
-    <input  type="number" class="form-control" @bind="inputValue" aria-label="Amount (to the nearest dollar)" />
-    
+    <input type="number" @onkeyup=@(x => changeFunc(@number)) class="form-control" @bind-value="number" aria-label="Amount (to the nearest dollar)" />
+    <span class="input-group-text">.00</span>
     <div>
         Formatted Currency: @FormatCurrency(inputValue)
     </div>
@@ -18,20 +14,17 @@
 
     public string number = "";
 
-    private CultureInfo cultureInfo = new CultureInfo("en-US");
     private string FormatCurrency( decimal value )
     {
         return value.ToString("C", System.Globalization.CultureInfo.CurrentCulture);
     }
-
 
     public void changeFunc( string numberVal )
     {
         if ( decimal.TryParse(numberVal, out decimal parsedAmount) )
         {
             var amount = parsedAmount;
-            number = string.Format(cultureInfo, "{0:C}", amount);
+            number = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C}", amount);
         }
-        StateHasChanged();
     }
 }
