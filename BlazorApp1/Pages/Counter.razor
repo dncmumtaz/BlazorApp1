@@ -6,7 +6,7 @@
 <PageTitle>Counter</PageTitle>
 
 
-<div class="form-group row" >
+<div class="form-group row" !important>
     <EditForm Model="weather">
         <InputText  @bind-Value="@number" @onkeyup=@(x => changeFunc(@number))></InputText>
 

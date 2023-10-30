@@ -1,23 +1,25 @@
-﻿@page "/CurrencyInput"
- 
-<h3>Currency Formatter</h3>
+﻿@page "/Currency"
 
-<div>
-    Enter a number:
-    <input type="number" @bind="inputValue"  />
-</div>
+@using System.Globalization;
 
-<div>
-    Formatted Currency: @FormatCurrency(inputValue)
+<div class="input-group">
+    <span class="input-group-text">@cultureInfo.NumberFormat.CurrencySymbol</span>
+    <input @onkeyup=@(x => changeFunc(@number)) class="form-control" @bind="number" aria-label="Amount (to the nearest dollar)" />
 </div>
 
 @code {
 
-
     private decimal inputValue;
+    public string number = "";
+    private CultureInfo cultureInfo = new CultureInfo("tr-TR");
 
-    private string FormatCurrency( decimal value )
+    public void changeFunc( string numberVal )
     {
-        return value.ToString("C", System.Globalization.CultureInfo.CurrentCulture);
+        if ( decimal.TryParse(numberVal, out decimal parsedAmount) )
+        {
+            var amount = parsedAmount;
+            number = string.Format(cultureInfo, "{0:N}", amount);
+        }
+        StateHasChanged();
     }
 }
