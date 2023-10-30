@@ -1,0 +1,23 @@
+﻿@page "/CurrencyInput"
+ 
+<h3>Currency Formatter</h3>
+
+<div>
+    Enter a number:
+    <input type="number" @bind="inputValue"  />
+</div>
+
+<div>
+    Formatted Currency: @FormatCurrency(inputValue)
+</div>
+
+@code {
+
+
+    private decimal inputValue;
+
+    private string FormatCurrency( decimal value )
+    {
+        return value.ToString("C", System.Globalization.CultureInfo.CurrentCulture);
+    }
+}

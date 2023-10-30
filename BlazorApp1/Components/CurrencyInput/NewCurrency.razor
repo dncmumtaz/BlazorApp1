@@ -1,0 +1,19 @@
+﻿
+<div class="input-group">
+    <span class="input-group-text">$</span>
+    <input type="number" class="form-control" @bind="inputValue"  aria-label="Amount (to the nearest dollar)" />
+    <span class="input-group-text">.00</span>
+    <div>
+        Formatted Currency: @FormatCurrency(inputValue)
+    </div>
+</div>
+
+@code {
+
+    private decimal inputValue;
+
+    private string FormatCurrency( decimal value )
+    {
+        return value.ToString("C", System.Globalization.CultureInfo.CurrentCulture);
+    }
+}
