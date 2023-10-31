@@ -2,7 +2,7 @@
 
 @inject IJSRuntime JsRuntime
 
-<input  class="form-control" placeholder="Pick a date" id="kt_datepicker_1"/>
+<input class="form-control" placeholder="Pick a date" id="kt_datepicker_1" value="@selectedDate" @onchange="Cad"/>
 
 <h1>JS Interop</h1>
 
@@ -11,20 +11,39 @@
 <button class="btn btn-success" @onclick="ShowAlert">Show Alert</button>
 
 @code{
+    protected string selectedDate = "Selected Date will be displayed here";
     protected DateTime? dateTime;
 
+    
+    async Task Cad()
+    {
+        var response = await JsRuntime.InvokeAsync<string>(identifier: "initializeDatePicker");
+
+    }
+    
+
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await JsRuntime.InvokeVoidAsync("test");
+            await JsRuntime.InvokeVoidAsync(identifier: "initializeDatePicker");
         }
     }
-
+    
+    
     async Task ShowAlert()
     {
-        //dateTime = InputDateType tarih
-
-        await JsRuntime.InvokeVoidAsync(identifier:"test");
+        await JsRuntime.InvokeVoidAsync(identifier: "createAlert");
     }
+
+    
+    [JSInvokable]
+    public void UpdateSelectedDate(string date)
+    {
+        selectedDate = date;
+        StateHasChanged();
+    }
+    
+    
 }
