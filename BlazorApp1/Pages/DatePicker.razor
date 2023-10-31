@@ -4,7 +4,7 @@
 
 <input class="form-control" placeholder="Pick a date" id="kt_datepicker_1" value="@selectedDate" @onchange="Cad"/>
 
-<h1>JS Interop</h1>
+<h1>JS Interop: @Date</h1>
 
 <h3>Create Alert</h3>
 
@@ -13,14 +13,14 @@
 @code{
     protected string selectedDate = "Selected Date will be displayed here";
     protected DateTime? dateTime;
+    private string Date;
 
-    
     async Task Cad()
     {
-        var response = await JsRuntime.InvokeAsync<string>(identifier: "initializeDatePicker");
-
+        Date = await JsRuntime.InvokeAsync<string>("initializeDatePicker");
+        
+        // selectedDate'i kullanabilirsiniz
     }
-    
 
     
     protected override async Task OnAfterRenderAsync(bool firstRender)

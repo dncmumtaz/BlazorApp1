@@ -17,13 +17,19 @@ async function updateSelectedDate(selectedDate) {
 }
 
 function initializeDatePicker() {
-    const datePicker = $("#kt_datepicker_1").flatpickr({
-        onChange: function (selectedDates, dateStr, instance) {
-            if (selectedDates.length > 0) {
-                //const selectedDate = selectedDates[0].toString();
-                return "mumtaz";//selectedDates[0].toString();
-                //updateSelectedDate(selectedDate);
+    return new Promise((resolve) => {
+        $("#kt_datepicker_1").flatpickr({
+            onChange: function (selectedDates, dateStr, instance) {
+                if (selectedDates.length > 0) {
+                    const selectedDate = selectedDates[0].toString();
+                    resolve(selectedDate);
+                }
             }
-        }
+        });
     });
 }
+function returnSelectedDate(selectedDate) {
+    // Seçilen tarihi döndürmek için "return" kullanabilirsiniz.
+    return selectedDate;
+}
+
