@@ -1,0 +1,35 @@
+﻿@page "/Email"
+
+<div class="form-floating mb-7">
+    <input type="email" class="form-control" @bind="EmailAddress" @oninput="ValidateEmail" placeholder="name@example.com" />
+    <label for="floatingInput">Email address</label>
+<span>@ErrorMessage</span>
+<span>@mail</span>
+
+</div>
+
+@code {
+    private string EmailAddress;
+    private string ErrorMessage;
+    private string mail;
+    private void ValidateEmail( ChangeEventArgs e )
+    {
+        EmailAddress = e.Value.ToString();
+
+        try
+        {
+            var mailAddress = new System.Net.Mail.MailAddress(EmailAddress);
+            mail = mailAddress.ToString();
+            ErrorMessage = string.Empty; 
+        }
+        catch ( Exception )
+        {
+            ErrorMessage = "Geçerli bir e-posta adresi girin";
+        }
+    }
+
+}
+
+
+
+
